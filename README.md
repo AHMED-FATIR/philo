@@ -23,7 +23,7 @@ Other solutions to the Dining Philosophers Problem exist,
 such as using monitors or using a centralized coordinator to allocate chopsticks. However, 
 the problem remains an important and interesting example of synchronization and concurrency issues in computer science.
 -----------------------------------------------------------------------------------------------------------------------------------
-++what is a process ?
+++what is a process?
 
 In computing, a process refers to a running instance of a program that has been loaded into memory, 
 and is being executed by the operating system. 
@@ -42,7 +42,7 @@ or terminated by the operating system or by other processes.
 Multiple processes can be run concurrently on a modern operating system, 
 allowing multiple programs to run simultaneously and improving system performance and responsiveness.
 -----------------------------------------------------------------------------------------------------------------------------------
-++what is IPC(interprocess communication) ?
+++what is IPC(interprocess communication)?
 
 Interprocess communication (IPC) refers to the mechanisms and techniques used by operating systems,
 to allow different processes to communicate and exchange data with each other.
@@ -58,7 +58,7 @@ Signals: A mechanism that allows processes to send and receive notifications or 
 IPC is used in many applications, such as web servers, databases, and distributed computing systems, 
 to enable efficient and reliable communication between processes.
 -----------------------------------------------------------------------------------------------------------------------------------
-++what is a thread ?
+++what is a thread?
 
 A thread is the smallest unit of execution within a process. 
 In computing, a process is an instance of a program that is being executed by the operating system, 
@@ -85,7 +85,7 @@ and both increment it before writing the updated value back to memory, the count
 To prevent race conditions, it is necessary to use proper synchronization mechanisms, such as locks, semaphores, or atomic operations, 
 to ensure that only one thread can access the shared resource at a time.
 -----------------------------------------------------------------------------------------------------------------------------------
-++what is the difference between locks, semaphores and atomic operations To prevent race conditions ?
+++what is the difference between locks, semaphores and atomic operations To prevent race conditions?
 
 Locks, semaphores, and atomic operations are all mechanisms that can be used to prevent race conditions in concurrent programming.
 Locks are synchronization primitives that allow mutual exclusion of access to shared resources. 
@@ -109,7 +109,7 @@ semaphores provide control based on a count or value,
 and atomic operations provide indivisible operations that can be performed without interference. 
 The choice of mechanism depends on the specific requirements of the program and the shared resources being accessed.
 -----------------------------------------------------------------------------------------------------------------------------------
-++what <pthread.h> need for ?
+++what <pthread.h> need for?
 
 <pthread.h> is a header file in the C programming language that provides the necessary declarations,
 and definitions for programming with threads in a POSIX-compliant operating system.
