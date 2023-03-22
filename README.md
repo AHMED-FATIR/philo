@@ -2,7 +2,7 @@
 
 ++overview of the project
 
-The Dining Philosophers Problem 
+The Dining Philosophers Problem:
 The Dining Philosophers Problem is a classic synchronization problem in computer science, 
 first proposed by Edsger Dijkstra in 1965. 
 The problem involves a group of philosophers sitting at a round table, 
