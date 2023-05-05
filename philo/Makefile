@@ -6,32 +6,22 @@
 #    By: afatir <afatir@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/07 14:35:22 by afatir            #+#    #+#              #
-#    Updated: 2023/03/08 13:34:15 by afatir           ###   ########.fr        #
+#    Updated: 2023/05/05 16:24:14 by afatir           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	= philo
-# BNAME	= checker
-
-CFLAGS	= -Wall -Werror -Wextra
+CFLAGS	= -Wall -Werror -Wextra -fsanitize=thread
+-fsanitize=address
 CC		= cc
-
 MOBJS	= ${SRCS:%.c=%.o}
-# BOBJS	= ${SRCS_B:%.c=%.o}
-
-SRCS	= main.c
-
-# SRCS_B	=
+SRCS	= philo.c parsing.c routine.c simulation.c simulation2.c
 
 all : $(NAME)
 
 $(NAME) : $(MOBJS)
 	@$(CC) $(CFLAGS) $(LIB_FT_A) $(MOBJS) -o $(NAME)
-
-# bonus: $(BNAME)
-
-# $(BNAME): $(BOBJS)
-# 	@$(CC) $(CFLAGS) $(BOBJS) -o $(BNAME)
+	@make clean
 
 %.o: %.c philo.h
 	$(CC) $(CFLAGS)  -c $< -o $@
@@ -39,7 +29,7 @@ $(NAME) : $(MOBJS)
 clean:
 	@rm -f $(MOBJS) 
 
-fclean: clean
+fclean:	clean
 	@rm -f $(NAME)
 
-re: 		fclean all
+re:	fclean all
