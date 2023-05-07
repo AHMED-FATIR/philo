@@ -6,7 +6,7 @@
 #    By: afatir <afatir@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/07 14:35:22 by afatir            #+#    #+#              #
-#    Updated: 2023/05/07 18:14:12 by afatir           ###   ########.fr        #
+#    Updated: 2023/05/07 18:34:31 by afatir           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ CFLAGS	= -Wall -Werror -Wextra
 -fsanitize=address
 CC		= cc
 MOBJS	= ${SRCS:%.c=%.o}
-SRCS	= philo_bonus.c parsing_bonus.c routine_bonus.c simulation_bonus.c simulation2_bonus.c
+SRCS	= philo_bonus.c parcing_bonus.c routine_bonus.c simulation_bonus.c simulation2_bonus.c
 
 all : $(NAME)
 
