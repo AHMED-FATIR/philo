@@ -6,7 +6,7 @@
 /*   By: afatir <afatir@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 18:00:58 by afatir            #+#    #+#             */
-/*   Updated: 2023/05/05 17:29:07 by afatir           ###   ########.fr       */
+/*   Updated: 2023/05/07 08:42:42 by afatir           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,8 @@ int	start_threads(t_data *data)
 	i = 0;
 	if (!mutex_init(data))
 		return (0);
-	data->start_t = t_time();
 	while (i < data->num_philo)
 	{
-		pthread_mutex_lock(&data->philo->m_death);
-		data->philo->last = t_time();
-		pthread_mutex_unlock(&data->philo->m_death);
 		if (pthread_create (&data->philo[i].ph_t, \
 			NULL, routin, &data->philo[i]) != 0)
 			return (0);
@@ -45,10 +41,15 @@ void	*routin(void *data)
 
 	ph = (t_philo *) data;
 	da = ph->data;
+	update_last(da);
 	if (ph->id % 2 != 0 && da->num_philo != 1)
-		usleep(2000);
+		ft_usleep(t_time(), 2);
+	if (ph->id == 0)
+		da->start_t = t_time();
 	while (1)
 	{
+		if (check_stop(da, 0))
+			break ;
 		taking_forks(ph, da);
 		if (da->num_philo == 1)
 			break ;
@@ -57,8 +58,6 @@ void	*routin(void *data)
 			break ;
 		sleeping(ph, da);
 		thinking(ph, da);
-		if (check_stop(da, 0))
-			break ;
 		usleep(500);
 	}
 	return (NULL);
@@ -87,7 +86,7 @@ void	*death(void *data)
 			return (NULL);
 		}
 		pthread_mutex_unlock(&da->philo->m_death);
-		usleep(1000);
+		ft_usleep(t_time(), 2);
 	}
 	return (NULL);
 }

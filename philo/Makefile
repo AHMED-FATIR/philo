@@ -6,12 +6,13 @@
 #    By: afatir <afatir@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/07 14:35:22 by afatir            #+#    #+#              #
-#    Updated: 2023/05/05 16:24:14 by afatir           ###   ########.fr        #
+#    Updated: 2023/05/07 08:47:52 by afatir           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	= philo
-CFLAGS	= -Wall -Werror -Wextra -fsanitize=thread
+CFLAGS	= -Wall -Werror -Wextra 
+-fsanitize=thread 
 -fsanitize=address
 CC		= cc
 MOBJS	= ${SRCS:%.c=%.o}

@@ -6,7 +6,7 @@
 /*   By: afatir <afatir@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/02 09:50:42 by afatir            #+#    #+#             */
-/*   Updated: 2023/05/05 15:25:55 by afatir           ###   ########.fr       */
+/*   Updated: 2023/05/07 11:20:38 by afatir           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,12 +59,6 @@ int	is_digit(char **av)
 		i++;
 	}
 	return (1);
-}
-
-void	ft_print_error(char *str)
-{
-	printf("%s", str);
-	exit(1);
 }
 
 int	fill(t_data *data, int ac, char **av)

@@ -6,7 +6,7 @@
 /*   By: afatir <afatir@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 16:24:02 by afatir            #+#    #+#             */
-/*   Updated: 2023/05/05 16:33:50 by afatir           ###   ########.fr       */
+/*   Updated: 2023/05/07 11:19:12 by afatir           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ long long	t_time(void)
 
 	t = 0;
 	if (gettimeofday(&tm, NULL) == -1)
-		ft_print_error("gettimeofday failed\n");
+		return (printf("gettimeofday failed\n"), 0);
 	t = (tm.tv_sec * 1000) + (tm.tv_usec / 1000);
 	return (t);
 }
@@ -46,24 +46,6 @@ int	mutex_init(t_data *data)
 	return (1);
 }
 
-void	finish_simulation(t_data *data)
-{
-	int		i;
-
-	i = 0;
-	while (i < data->num_philo)
-	{
-		pthread_mutex_destroy(&(data->fork_m[i]));
-		i++;
-	}
-	pthread_mutex_destroy(&data->philo->m_death);
-	pthread_mutex_destroy(&data->philo->m_stop);
-	pthread_mutex_destroy(&data->philo->m_count);
-	pthread_mutex_destroy(&data->print_m);
-	free (data->philo);
-	free (data->fork_m);
-}
-
 int	ft_join(t_data *data)
 {
 	int		i;
@@ -84,4 +66,11 @@ void	ft_usleep(long long time, int time_to_sleep)
 {
 	while ((int)(t_time() - time) < time_to_sleep)
 		usleep(100);
+}
+
+void	update_last(t_data *da)
+{
+	pthread_mutex_lock(&da->philo->m_death);
+	da->philo->last = t_time();
+	pthread_mutex_unlock(&da->philo->m_death);
 }

@@ -6,11 +6,29 @@
 /*   By: afatir <afatir@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 08:24:42 by afatir            #+#    #+#             */
-/*   Updated: 2023/05/05 16:26:44 by afatir           ###   ########.fr       */
+/*   Updated: 2023/05/07 11:26:20 by afatir           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+void	finish_simulation(t_data *data)
+{
+	int		i;
+
+	i = 0;
+	while (i < data->num_philo)
+	{
+		pthread_mutex_destroy(&(data->fork_m[i]));
+		i++;
+	}
+	pthread_mutex_destroy(&data->philo->m_death);
+	pthread_mutex_destroy(&data->philo->m_stop);
+	pthread_mutex_destroy(&data->philo->m_count);
+	pthread_mutex_destroy(&data->print_m);
+	free (data->philo);
+	free (data->fork_m);
+}
 
 void	fill_philo(t_data *data)
 {
@@ -29,21 +47,16 @@ void	fill_philo(t_data *data)
 	}	
 }
 
-void	v(void)
-{
-	system("leaks philo");
-}
-
 int	main(int ac, char **av)
 {
 	t_data	data;
-	// atexit(v);
+
 	if ((ac != 5 && ac != 6) || !is_digit(av) || \
 		!fill(&data, ac, av) || !philo_malloc(&data))
-		ft_print_error("wrong argument\n");
+		return (printf("THE ARGUMENT IS WRONG\n"), 1);
 	fill_philo(&data);
 	if (!start_threads(&data))
-		ft_print_error("the program failed\n");
+		return(printf("THE PROGRAM FAILED\n"), 1);
 	finish_simulation(&data);
 	return (0);
 }

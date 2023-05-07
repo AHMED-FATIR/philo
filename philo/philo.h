@@ -6,7 +6,7 @@
 /*   By: afatir <afatir@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 14:31:11 by afatir            #+#    #+#             */
-/*   Updated: 2023/05/05 16:34:21 by afatir           ###   ########.fr       */
+/*   Updated: 2023/05/07 11:20:32 by afatir           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ typedef struct s_data
 //parsing.c
 int			ft_atoi(const char *str);
 int			fill(t_data *data, int ac, char **av);
-void		ft_print_error(char *str);
 int			is_digit(char **av);
 int			philo_malloc(t_data *data);
 //simulation.c
@@ -64,9 +63,9 @@ int			check_count(t_data *da);
 //simulation2.c
 long long	t_time(void);
 int			mutex_init(t_data *data);
-void		finish_simulation(t_data *data);
 int			ft_join(t_data *data);
 void		ft_usleep(long long time, int time_to_sleep);
+void		update_last(t_data *da);
 //routin.c
 void		print_ph(t_philo *ph, t_data *da, char *s);
 void		thinking(t_philo *ph, t_data *da);
@@ -74,5 +73,6 @@ void		taking_forks(t_philo *ph, t_data *da);
 void		eating(t_philo *ph, t_data *da);
 void		sleeping(t_philo *ph, t_data *da);
 //philo.c
+void		finish_simulation(t_data *data);
 void		fill_philo(t_data *data);
 #endif

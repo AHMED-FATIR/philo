@@ -6,7 +6,7 @@
 /*   By: afatir <afatir@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 17:57:31 by afatir            #+#    #+#             */
-/*   Updated: 2023/05/05 17:03:23 by afatir           ###   ########.fr       */
+/*   Updated: 2023/05/07 08:38:19 by afatir           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,7 @@ void	eating(t_philo *ph, t_data *da)
 	else
 	{
 		print_ph(ph, da, "is eating");
-		pthread_mutex_lock(&da->philo->m_death);
-		ph->last = t_time();
-		pthread_mutex_unlock(&da->philo->m_death);
+		update_last(da);
 		ft_usleep(t_time(), da->t_eat);
 		if (da->num_eat)
 		{
