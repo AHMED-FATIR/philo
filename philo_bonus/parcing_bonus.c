@@ -1,16 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing_bonus.c                                    :+:      :+:    :+:   */
+/*   parcing_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: afatir <afatir@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/02 09:50:42 by afatir            #+#    #+#             */
-/*   Updated: 2023/05/07 16:53:36 by afatir           ###   ########.fr       */
+/*   Updated: 2023/05/11 18:49:35 by afatir           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_bonus.h"
+
+void	fill_philo(t_data *data)
+{
+	int		i;
+
+	i = 0;
+	data->start_t = t_time();
+	while (i < data->num_philo)
+	{
+		data->philo[i].count = 0;
+		data->philo[i].data = data;
+		data->philo[i].id = i + 1;
+		data->philo[i].last = data->start_t;
+		i++;
+	}	
+}
 
 int	ft_atoi(const char *str)
 {
@@ -67,6 +83,7 @@ int	fill(t_data *data, int ac, char **av)
 	data->t_die = ft_atoi(av[2]);
 	data->t_eat = ft_atoi(av[3]);
 	data->t_sleep = ft_atoi(av[4]);
+	data->num_eat = 0;
 	if (ac == 6)
 	{
 		data->num_eat = ft_atoi(av[5]);
@@ -75,6 +92,7 @@ int	fill(t_data *data, int ac, char **av)
 	}
 	if (!data->num_philo || !data->t_die ||!data->t_eat || !data->t_sleep)
 		return (0);
+	data->stop = 0;
 	return (1);
 }
 

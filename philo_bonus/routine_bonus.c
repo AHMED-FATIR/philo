@@ -6,7 +6,7 @@
 /*   By: afatir <afatir@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 17:57:31 by afatir            #+#    #+#             */
-/*   Updated: 2023/05/07 18:20:32 by afatir           ###   ########.fr       */
+/*   Updated: 2023/05/11 18:44:19 by afatir           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,9 @@
 
 void	print_ph(t_philo *ph, char *s)
 {
+	check_stop(ph, 0);
 	sem_wait(ph->data->print_s);
-	printf("%lld\11", t_time() - ph->data->start_t);
-	printf("%d\11", ph->id);
-	printf("%s\11\n", s);
+	printf("%lld\t%d\t%s\n", t_time() - ph->data->start_t, ph->id, s);
 	sem_post(ph->data->print_s);
 }
 
@@ -37,16 +36,12 @@ void	taking_forks(t_philo *ph)
 void	eating(t_philo *ph)
 {
 	print_ph(ph, "is eating");
-// sem_wait(ph->last_s);
+	sem_wait(ph->data->last_s);
 	ph->last = t_time();
-// sem_post(ph->last_s);
+	sem_post(ph->data->last_s);
 	ft_usleep(t_time(), ph->data->t_eat);
 	if (ph->data->num_eat)
-	{
-// sem_wait(ph->count_s);
-		ph->count++;
-// sem_post(ph->count_s);
-	}
+		check_count(ph, 1);
 	sem_post(ph->data->fork_s);
 	sem_post(ph->data->fork_s);
 }

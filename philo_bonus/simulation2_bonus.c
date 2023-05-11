@@ -6,16 +6,48 @@
 /*   By: afatir <afatir@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 18:08:51 by afatir            #+#    #+#             */
-/*   Updated: 2023/05/07 18:17:32 by afatir           ###   ########.fr       */
+/*   Updated: 2023/05/11 18:47:13 by afatir           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_bonus.h"
 
-void	ft_exit(t_data *da, int i)
+void	check_count(t_philo *ph, int i)
 {
-	free(da->philo);
-	exit(i);
+	sem_wait(ph->data->count_s);
+	if (i == 0)
+	{
+		if (ph->data->num_eat && ph->data->num_eat <= ph->count)
+		{	
+			sem_post(ph->data->count_s);
+			exit(0);
+		}
+	}
+	else
+		ph->count++;
+	sem_post(ph->data->count_s);
+}
+
+int	check_stop(t_philo *ph, int i)
+{
+	sem_wait(ph->data->stop_s);
+	if (i == 0)
+	{
+		if (!ph->data->stop)
+		{
+			sem_post(ph->data->stop_s);
+			return (0);
+		}
+		else
+		{
+			sem_post(ph->data->stop_s);
+			exit(0);
+		}
+	}
+	else
+		ph->data->stop++;
+	sem_post(ph->data->stop_s);
+	return (1);
 }
 
 long long	t_time(void)
@@ -40,7 +72,7 @@ int	creat_threads(t_philo *ph)
 {
 	pthread_t	prc;
 
-	if (pthread_create (&prc, NULL, routine, ph) != 0)
+	if (pthread_create (&prc, NULL, death, ph) != 0)
 		return (0);
 	if (pthread_detach(prc) != 0)
 		return (0);
