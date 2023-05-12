@@ -6,7 +6,7 @@
 /*   By: afatir <afatir@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/02 09:50:42 by afatir            #+#    #+#             */
-/*   Updated: 2023/05/11 18:49:35 by afatir           ###   ########.fr       */
+/*   Updated: 2023/05/12 17:41:54 by afatir           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,6 @@ int	fill(t_data *data, int ac, char **av)
 	}
 	if (!data->num_philo || !data->t_die ||!data->t_eat || !data->t_sleep)
 		return (0);
-	data->stop = 0;
 	return (1);
 }
 

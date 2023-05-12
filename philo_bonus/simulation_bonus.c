@@ -6,7 +6,7 @@
 /*   By: afatir <afatir@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 18:00:58 by afatir            #+#    #+#             */
-/*   Updated: 2023/05/11 18:47:05 by afatir           ###   ########.fr       */
+/*   Updated: 2023/05/12 17:56:27 by afatir           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,8 @@ pid_t	*start_simulation(t_data *data)
 
 int	routine(t_philo *ph)
 {
-	if (!creat_threads(ph))
-		return (0);
 	if (ph->id % 2 == 0 && ph->data->num_philo != 1)
-		ft_usleep(t_time(), 2);
+		usleep(1000);
 	while (1)
 	{
 		taking_forks(ph);
@@ -55,49 +53,17 @@ int	routine(t_philo *ph)
 		if (ph->data->num_eat)
 			check_count(ph, 0);
 		thinking(ph);
-		usleep(200);
 	}
 	return (1);
-}
-
-void	*death(void *philo)
-{
-	t_philo	*ph;
-
-	ph = philo;
-	while (1)
-	{
-		sem_wait(ph->data->last_s);
-		if ((t_time() - ph->last) >= ph->data->t_die)
-		{
-			check_stop(ph, 0);
-			sem_wait(ph->data->print_s);
-			printf("%lld\t%d\t%s\n", t_time() - ph->data->start_t, ph->id, "died");
-			check_stop(ph, 1);
-			sem_post(ph->data->last_s);
-			exit(1);
-		}
-		usleep(200);
-		sem_post(ph->data->last_s);
-	}
-	return (NULL);
 }
 
 int	init_semaphore(t_data *da)
 {
 	sem_unlink("fork_s");
 	sem_unlink("print_s");
-	sem_unlink("count_s");
-	sem_unlink("last_s");
-	sem_unlink("stop_s");
 	da->fork_s = sem_open("fork_s", O_CREAT, 0777, da->num_philo);
 	da->print_s = sem_open("print_s", O_CREAT, 0777, 1);
-	da->count_s = sem_open("count_s", O_CREAT, 0777, 1);
-	da->last_s = sem_open("last_s", O_CREAT, 0777, 1);
-	da->stop_s = sem_open("stop_s", O_CREAT, 0777, 1);
-	if ((da->fork_s == SEM_FAILED) || (da->print_s == SEM_FAILED) \
-	|| (da->count_s == SEM_FAILED) || (da->last_s == SEM_FAILED) \
-	|| (da->stop_s == SEM_FAILED))
+	if ((da->fork_s == SEM_FAILED) || (da->print_s == SEM_FAILED))
 		return (0);
 	return (1);
 }

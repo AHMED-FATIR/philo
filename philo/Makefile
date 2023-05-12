@@ -6,14 +6,13 @@
 #    By: afatir <afatir@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/07 14:35:22 by afatir            #+#    #+#              #
-#    Updated: 2023/05/07 18:34:11 by afatir           ###   ########.fr        #
+#    Updated: 2023/05/12 18:00:34 by afatir           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	= philo
 CFLAGS	= -Wall -Werror -Wextra 
--fsanitize=thread 
--fsanitize=address
+-fsanitize=thread
 CC		= cc
 MOBJS	= ${SRCS:%.c=%.o}
 SRCS	= philo.c parcing.c routine.c simulation.c simulation2.c
@@ -22,7 +21,7 @@ all : $(NAME)
 
 $(NAME) : $(MOBJS)
 	@$(CC) $(CFLAGS) $(LIB_FT_A) $(MOBJS) -o $(NAME)
-	@make clean
+# @make clean
 
 %.o: %.c philo.h
 	$(CC) $(CFLAGS)  -c $< -o $@
