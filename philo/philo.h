@@ -6,7 +6,7 @@
 /*   By: afatir <afatir@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 14:31:11 by afatir            #+#    #+#             */
-/*   Updated: 2023/05/07 11:20:32 by afatir           ###   ########.fr       */
+/*   Updated: 2023/05/13 10:41:17 by afatir           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,8 @@ int			check_count(t_data *da);
 long long	t_time(void);
 int			mutex_init(t_data *data);
 int			ft_join(t_data *data);
-void		ft_usleep(long long time, int time_to_sleep);
-void		update_last(t_data *da);
+void		update_last(t_philo *ph, t_data *da);
+int			check_last(t_philo *ph, t_data *da);
 //routin.c
 void		print_ph(t_philo *ph, t_data *da, char *s);
 void		thinking(t_philo *ph, t_data *da);
@@ -73,6 +73,8 @@ void		taking_forks(t_philo *ph, t_data *da);
 void		eating(t_philo *ph, t_data *da);
 void		sleeping(t_philo *ph, t_data *da);
 //philo.c
+void		ft_usleep(long long time, int time_to_sleep);
 void		finish_simulation(t_data *data);
 void		fill_philo(t_data *data);
+///
 #endif

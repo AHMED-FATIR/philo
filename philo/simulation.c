@@ -6,7 +6,7 @@
 /*   By: afatir <afatir@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 18:00:58 by afatir            #+#    #+#             */
-/*   Updated: 2023/05/12 16:39:54 by afatir           ###   ########.fr       */
+/*   Updated: 2023/05/13 17:46:36 by afatir           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ int	start_threads(t_data *data)
 		return (0);
 	while (i < data->num_philo)
 	{
+		update_last(&data->philo[i], data);
 		if (pthread_create (&data->philo[i].ph_t, \
 			NULL, routin, &data->philo[i]) != 0)
 			return (0);
@@ -41,11 +42,10 @@ void	*routin(void *data)
 
 	ph = (t_philo *) data;
 	da = ph->data;
-	update_last(da);
-	if (ph->id % 2 != 0 && da->num_philo != 1)
-		ft_usleep(t_time(), 2);
 	if (ph->id == 0)
 		da->start_t = t_time();
+	if (ph->id % 2 != 0 && da->num_philo != 1)
+		usleep (200);
 	while (1)
 	{
 		if (check_stop(da, 0))
@@ -58,7 +58,7 @@ void	*routin(void *data)
 			break ;
 		sleeping(ph, da);
 		thinking(ph, da);
-		usleep(500);
+		ft_usleep(t_time(), 2);
 	}
 	return (NULL);
 }
@@ -72,20 +72,17 @@ void	*death(void *data)
 	da = ph->data;
 	while (1)
 	{
-		pthread_mutex_lock(&da->philo->m_death);
-		if (t_time() - da->philo->last >= da->t_die)
+		if (check_last(ph, da))
 		{
 			if (check_stop(da, 0) || check_count(da))
-				return (pthread_mutex_unlock(&da->philo->m_death), NULL);
+				break ;
 			check_stop(da, 1);
 			pthread_mutex_lock(&da->print_m);
-			printf("%lld\t%d\t%s\t\n", (t_time() - ph->data->start_t), \
+			printf("%lld\t%d\t%s\n", (t_time() - ph->data->start_t), \
 			ph->id + 1, "died");
 			pthread_mutex_unlock(&da->print_m);
-			pthread_mutex_unlock(&da->philo->m_death);
 			return (NULL);
 		}
-		pthread_mutex_unlock(&da->philo->m_death);
 		ft_usleep(t_time(), 2);
 	}
 	return (NULL);

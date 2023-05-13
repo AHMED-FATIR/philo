@@ -6,7 +6,7 @@
 /*   By: afatir <afatir@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 16:24:02 by afatir            #+#    #+#             */
-/*   Updated: 2023/05/07 11:19:12 by afatir           ###   ########.fr       */
+/*   Updated: 2023/05/13 10:42:05 by afatir           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,15 +62,20 @@ int	ft_join(t_data *data)
 	return (1);
 }
 
-void	ft_usleep(long long time, int time_to_sleep)
-{
-	while ((int)(t_time() - time) < time_to_sleep)
-		usleep(100);
-}
-
-void	update_last(t_data *da)
+void	update_last(t_philo *ph, t_data *da)
 {
 	pthread_mutex_lock(&da->philo->m_death);
-	da->philo->last = t_time();
+	ph->last = t_time();
 	pthread_mutex_unlock(&da->philo->m_death);
+}
+
+int	check_last(t_philo *ph, t_data *da)
+{
+	pthread_mutex_lock(&da->philo->m_death);
+	if ((t_time() - ph->last) >= da->t_die)
+	{
+		return (pthread_mutex_unlock(&da->philo->m_death), 1);
+	}
+	pthread_mutex_unlock(&da->philo->m_death);
+	return (0);
 }

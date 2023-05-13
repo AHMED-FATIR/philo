@@ -6,7 +6,7 @@
 /*   By: afatir <afatir@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 18:00:58 by afatir            #+#    #+#             */
-/*   Updated: 2023/05/12 17:56:27 by afatir           ###   ########.fr       */
+/*   Updated: 2023/05/13 07:25:16 by afatir           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,16 +43,14 @@ pid_t	*start_simulation(t_data *data)
 
 int	routine(t_philo *ph)
 {
-	if (ph->id % 2 == 0 && ph->data->num_philo != 1)
-		usleep(1000);
 	while (1)
 	{
 		taking_forks(ph);
 		eating(ph);
 		sleeping(ph);
+		thinking(ph);
 		if (ph->data->num_eat)
 			check_count(ph, 0);
-		thinking(ph);
 	}
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: afatir <afatir@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 08:24:42 by afatir            #+#    #+#             */
-/*   Updated: 2023/05/12 17:56:58 by afatir           ###   ########.fr       */
+/*   Updated: 2023/05/13 18:05:48 by afatir           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,5 +31,10 @@ int	main(int ac, char **av)
 	sem_unlink("print_s");
 	free(f_pid);
 	free(data.philo);
+	while (1)
+	{
+		/* code */
+	}
+	
 	return (0);
 }

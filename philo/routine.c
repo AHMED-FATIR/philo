@@ -6,7 +6,7 @@
 /*   By: afatir <afatir@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 17:57:31 by afatir            #+#    #+#             */
-/*   Updated: 2023/05/07 08:38:19 by afatir           ###   ########.fr       */
+/*   Updated: 2023/05/13 10:20:21 by afatir           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,16 +53,16 @@ void	eating(t_philo *ph, t_data *da)
 	else
 	{
 		print_ph(ph, da, "is eating");
-		update_last(da);
 		ft_usleep(t_time(), da->t_eat);
+		update_last(ph, da);
+		pthread_mutex_unlock(&da->fork_m[ph->r_fork]);
+		pthread_mutex_unlock(&da->fork_m[ph->l_fork]);
 		if (da->num_eat)
 		{
 			pthread_mutex_lock(&da->philo->m_count);
 			ph->count++;
 			pthread_mutex_unlock(&da->philo->m_count);
 		}
-		pthread_mutex_unlock(&da->fork_m[ph->r_fork]);
-		pthread_mutex_unlock(&da->fork_m[ph->l_fork]);
 	}
 }
 
